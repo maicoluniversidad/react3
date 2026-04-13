@@ -1,10 +1,73 @@
-import "./style.css";
+import { useState } from 'react';
+import {useParams} from 'react-router';
+import { useEffect } from 'react';
 
-function equipo(){
-    return(
-        <>
-        <p>equipo</p>
-        </>
-    )
+
+interface TeamData {
+  team: {
+    name: string;
+    info: {
+      city: string;
+      founded: string;
+      stadium: string;
+      president: string;
+      last_title: string;
+    };
+    ranking: {
+      position: string;
+      competition: string;
+    };
+    social: {
+      facebook: string;
+      instagram: string;
+      x: string;
+    };
+    links: {
+      store: string;
+      tickets: string;
+    };
+  };
 }
-export default equipo
+function Equipo() {
+  const { equipo } = useParams<{ equipo: string }>();
+
+  const [data, setData] = useState<TeamData | null>(null);
+
+  useEffect(() => {
+  if (!equipo) return;
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        `https://raw.githubusercontent.com/sdtibata/dataliga/main/${equipo}.json`
+      );
+
+      const data = await res.json();
+      setData(data);
+    } catch (error) {
+      console.error("Error cargando datos:", error);
+    }
+  };
+
+  fetchData();
+}, [equipo]);
+if(!data) return <p>cargando...</p>;
+ return (
+    <div>
+      <h1>{data.team.name}</h1>
+
+      <h2>Información</h2>
+      <p><strong>Ciudad:</strong> {data.team.info.city}</p>
+      <p><strong>Fundado:</strong> {data.team.info.founded}</p>
+      <p><strong>Estadio:</strong> {data.team.info.stadium}</p>
+      <p><strong>Presidente:</strong> {data.team.info.president}</p>
+      <p><strong>Último título:</strong> {data.team.info.last_title}</p>
+
+    
+
+    </div>
+);
+}
+
+
+export default Equipo;

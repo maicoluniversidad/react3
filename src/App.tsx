@@ -14,6 +14,7 @@ return(
   <Routes>
 
     <Route path= "/"element={<Home/>} />
+    <Route path= "/home" element={<Home/>} />
     <Route path= "/favoritos" element={<Favoritos/>} />
     <Route path= "/original" element={<Original/>} />
     <Route path="/informativa" element={<Informativa/>} />
@@ -24,6 +25,7 @@ return(
 </Routes>
 <nav className="c-menu">
   <Link to ="/home"></Link>
+  <Link to ="/home">home</Link>
 <Link to ="/favoritos">favoritos</Link>
 <Link to ="/original">original</Link>
 <Link to ="/informativa">informativa</Link>
