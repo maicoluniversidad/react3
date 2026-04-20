@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useContext } from 'react'
 import { Link } from 'react-router'
+import { Contexto } from '../contexto';
+
 
 import "./style.css";
 
@@ -57,6 +59,7 @@ function Home() {
   const [busqueda, setBusqueda] = useState('')
 
   useEffect(() => {
+    
     setBusqueda('') 
     const fetchData = async () => {
       try {
@@ -93,6 +96,7 @@ function Home() {
 
 
   return (
+   
     <>
       <div className="filtros">
         {filtros.map((onestat) => (
